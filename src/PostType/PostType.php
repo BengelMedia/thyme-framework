@@ -3,6 +3,7 @@
 namespace Thyme\Framework\PostType;
 
 use InvalidArgumentException;
+use Thyme\Framework\Icons\DashIcons;
 use Thyme\Framework\Models\Post;
 
 /**
@@ -48,7 +49,7 @@ abstract class PostType
      */
     public function icon(): string
     {
-        return 'dashicons-admin-post';
+        return DashIcons::AdminPost->value;
     }
 
     /**
