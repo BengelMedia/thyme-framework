@@ -48,9 +48,10 @@ class Event extends PostType {
 ```php
 use Extended\ACF\Fields\Text;
 use Extended\ACF\Fields\WYSIWYGEditor;
-use Thyme\Framework\Icons\DashIcons;
 
-class Cookie extends \Thyme\Framework\Options\OptionsPage {
+use Thyme\Framework\Icons\DashIcons;
+use Thyme\Framework\Options\OptionsPage;
+class Cookie extends OptionsPage  {
     public function slug(): string { return 'cookie'; }
     public function pageTitle(): string { return 'Cookie'; }
     public function icon(): string { return DashIcons::StarFilled->value; }
