@@ -16,10 +16,6 @@ use Illuminate\Support\Collection;
  *
  * @property-read  User $author
  * @property-read Collection<int, PostMeta> $meta
- *
- *
- *
- *
  */
 class Post extends Model
 {

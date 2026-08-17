@@ -1,0 +1,28 @@
+<?php
+
+namespace {{ namespace }};
+
+use Thyme\Framework\PostType\PostType;
+
+class {{ class }} extends PostType
+{
+    public function slug(): string
+    {
+        return 'DummySlug';
+    }
+
+    public function singular(): string
+    {
+        return 'DummySingular';
+    }
+
+    public function plural(): string
+    {
+        return 'DummyPlural';
+    }
+
+    public function icon(): string
+    {
+        return 'DummyIcon';
+    }
+}
