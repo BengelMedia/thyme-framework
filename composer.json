@@ -27,5 +27,13 @@
             "automattic/jetpack-autoloader": true,
             "pestphp/pest-plugin": true
         }
+    },
+
+    "extra": {
+        "acorn": {
+            "providers": [
+                "Thyme\\Framework\\Providers\\ThymeServiceProvider"
+            ],
+        }
     }
 }
