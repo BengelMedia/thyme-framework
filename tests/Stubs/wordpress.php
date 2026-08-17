@@ -56,6 +56,13 @@ if (! function_exists('register_field_group')) {
     }
 }
 
+if (! function_exists('get_template_directory')) {
+    function get_template_directory(): string
+    {
+        return __DIR__;
+    }
+}
+
 function registered_post_type(string $post_type): ?array
 {
     return $GLOBALS['_registered_post_types'][$post_type] ?? null;

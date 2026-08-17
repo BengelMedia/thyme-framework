@@ -15,19 +15,18 @@ use Thyme\Framework\Options\OptionsPageRegistrar;
  */
 class OptionsPageServiceProvider extends ServiceProvider
 {
-    /**
-     * OptionsPage classes that should be registered.
-     *
-     * @var class-string<OptionsPage>[]
-     */
-    protected array $optionsPages = [];
-
     public function register(): void
     {
         $this->app->singleton(OptionsPageRegistrar::class, function () {
             $registrar = new OptionsPageRegistrar;
 
-            $registrar->addMany($this->optionsPages);
+            $rootNamespace = $this->app->getNamespace();
+            $rootDirectory = get_template_directory();
+
+            collect(glob($rootDirectory.'/app/OptionsPages/*.php', GLOB_BRACE))->each(function ($file) use ($rootNamespace, $registrar) {
+                $className = $rootNamespace.'OptionsPages\\'.basename($file, '.php');
+                $registrar->add($className);
+            });
 
             return $registrar;
         });

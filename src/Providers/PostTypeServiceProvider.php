@@ -27,7 +27,13 @@ class PostTypeServiceProvider extends ServiceProvider
         $this->app->singleton(PostTypeRegistrar::class, function () {
             $registrar = new PostTypeRegistrar;
 
-            $registrar->addMany($this->postTypes);
+            $rootNamespace = $this->app->getNamespace();
+            $rootDirectory = get_template_directory();
+
+            collect(glob($rootDirectory.'/app/PostTypes/*.php', GLOB_BRACE))->each(function ($file) use ($rootNamespace, $registrar) {
+                $className = $rootNamespace.'PostType\\'.basename($file, '.php');
+                $registrar->add($className);
+            });
 
             return $registrar;
         });
