@@ -33,10 +33,39 @@ add_action('after_setup_theme', function () {
 # Features:
 ## Easy post type registration
 ```php
-class Event extends \Thyme\Framework\PostType\PostType {
+use Thyme\Framework\PostType\PostType;
+use Thyme\Framework\Icons\DashIcons;
+
+class Event extends PostType {
     public function slug(): string { return 'event'; }
     public function singular(): string { return 'Event'; }
     public function plural(): string { return 'Events'; }
-    public function icon(): string { return 'dashicons-calendar'; }
+    public function icon(): string { return DashIcons::Calendar->value; }
 }
 ```
+
+## Easy options page registration
+```php
+use Extended\ACF\Fields\Text;
+use Extended\ACF\Fields\WYSIWYGEditor;
+use Thyme\Framework\Icons\DashIcons;
+
+class Cookie extends \Thyme\Framework\Options\OptionsPage {
+    public function slug(): string { return 'cookie'; }
+    public function pageTitle(): string { return 'Cookie'; }
+    public function icon(): string { return DashIcons::StarFilled->value; }
+    public function position(): ?int { return 21; }
+
+    public function fields(): array {
+        return [
+            WYSIWYGEditor::make('Text', 'cookie_text')
+                ->helperText('Add the cookie disclaimer text.')
+                ->required(),
+            Text::make('Label', 'cookie_label')
+                ->helperText('Add the button label.')
+                ->required(),
+        ];
+    }
+}
+```
+Any option page with fields will automatically have its ACF field group registered, located on the `options_page` matching its slug.
