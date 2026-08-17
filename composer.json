@@ -1,0 +1,31 @@
+{
+    "name": "thyme/framework",
+    "description": "The general framework for WordPress block themes using ACF blocks",
+    "require": {
+        "vinkla/extended-acf": "^15.1",
+        "automattic/jetpack-autoloader": "^5.0",
+        "roots/acorn": "^6.2"
+    },
+    "require-dev": {
+        "pestphp/pest": "^5.1",
+        "laravel/pao": "^1.1"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Thyme\\Framework\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Thijmen Rierink",
+            "email": "thijmen@bengelmedia.nl"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "automattic/jetpack-autoloader": true,
+            "pestphp/pest-plugin": true
+        }
+    }
+}
