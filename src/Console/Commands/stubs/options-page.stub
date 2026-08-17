@@ -1,0 +1,28 @@
+<?php
+
+namespace {{ namespace }};
+
+use Thyme\Framework\Options\OptionsPage;
+
+class {{ class }} extends OptionsPage
+{
+    public function slug(): string
+    {
+        return 'DummySlug';
+    }
+
+    public function pageTitle(): string
+    {
+        return 'DummyPageTitle';
+    }
+
+    public function menuTitle(): string
+    {
+        return 'DummyMenuTitle';
+    }
+
+    public function icon(): string
+    {
+        return 'DummyIcon';
+    }
+}
