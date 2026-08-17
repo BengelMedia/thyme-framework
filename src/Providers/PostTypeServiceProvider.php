@@ -4,6 +4,7 @@ namespace Thyme\Framework\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Thyme\Framework\Console\Commands\MakePostTypeCommand;
+use Thyme\Framework\PostType\PostType;
 use Thyme\Framework\PostType\PostTypeRegistrar;
 
 /**
@@ -17,14 +18,14 @@ class PostTypeServiceProvider extends ServiceProvider
     /**
      * PostType classes that should be registered.
      *
-     * @var class-string<\Thyme\Framework\PostType\PostType>[]
+     * @var class-string<PostType>[]
      */
     protected array $postTypes = [];
 
     public function register(): void
     {
         $this->app->singleton(PostTypeRegistrar::class, function () {
-            $registrar = new PostTypeRegistrar();
+            $registrar = new PostTypeRegistrar;
 
             $registrar->addMany($this->postTypes);
 

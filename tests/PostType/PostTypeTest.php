@@ -50,7 +50,7 @@ class CustomEvent extends PostType
 }
 
 it('registers a post type with default values', function () {
-    $event = new BasicEvent();
+    $event = new BasicEvent;
     $event->register();
 
     expect(registered_post_type('event'))->not->toBeNull()
@@ -62,7 +62,7 @@ it('registers a post type with default values', function () {
 });
 
 it('registers a post type with custom values', function () {
-    $event = new CustomEvent();
+    $event = new CustomEvent;
     $event->register();
 
     expect(registered_post_type('custom_event'))->not->toBeNull()
@@ -74,7 +74,8 @@ it('registers a post type with custom values', function () {
 });
 
 it('throws on slugs longer than 20 characters', function () {
-    $longSlug = new class extends PostType {
+    $longSlug = new class extends PostType
+    {
         public function slug(): string
         {
             return 'this_post_type_slug_is_way_too_long';
@@ -85,7 +86,8 @@ it('throws on slugs longer than 20 characters', function () {
 })->throws(InvalidArgumentException::class, 'must be 20 characters or fewer');
 
 it('throws on slugs with uppercase characters', function () {
-    $uppercase = new class extends PostType {
+    $uppercase = new class extends PostType
+    {
         public function slug(): string
         {
             return 'Event';
@@ -96,7 +98,8 @@ it('throws on slugs with uppercase characters', function () {
 })->throws(InvalidArgumentException::class, 'must be lowercase');
 
 it('throws on slugs with invalid characters', function () {
-    $invalid = new class extends PostType {
+    $invalid = new class extends PostType
+    {
         public function slug(): string
         {
             return 'my post type';

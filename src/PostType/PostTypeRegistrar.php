@@ -17,7 +17,7 @@ class PostTypeRegistrar
     /**
      * Add a PostType class to the registrar.
      *
-     * @param class-string<PostType> $postTypeClass
+     * @param  class-string<PostType>  $postTypeClass
      *
      * @throws InvalidArgumentException
      */
@@ -25,7 +25,7 @@ class PostTypeRegistrar
     {
         if (! is_subclass_of($postTypeClass, PostType::class)) {
             throw new InvalidArgumentException(
-                "{$postTypeClass} must extend " . PostType::class
+                "{$postTypeClass} must extend ".PostType::class
             );
         }
 
@@ -37,7 +37,7 @@ class PostTypeRegistrar
     /**
      * Add multiple PostType classes at once.
      *
-     * @param class-string<PostType>[] $postTypeClasses
+     * @param  class-string<PostType>[]  $postTypeClasses
      */
     public function addMany(array $postTypeClasses): self
     {
@@ -54,7 +54,7 @@ class PostTypeRegistrar
     public function register(): void
     {
         foreach ($this->postTypes as $postTypeClass) {
-            (new $postTypeClass())->register();
+            (new $postTypeClass)->register();
         }
     }
 

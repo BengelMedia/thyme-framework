@@ -36,7 +36,7 @@ class MakePostTypeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/stubs/post-type.stub';
+        return __DIR__.'/stubs/post-type.stub';
     }
 
     /**
@@ -47,7 +47,7 @@ class MakePostTypeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\\PostTypes';
+        return $rootNamespace.'\\PostTypes';
     }
 
     /**
@@ -136,7 +136,7 @@ class MakePostTypeCommand extends GeneratorCommand
             return $this->option('plural');
         }
 
-        return $this->getSingular($className) . 's';
+        return $this->getSingular($className).'s';
     }
 
     /**

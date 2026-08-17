@@ -10,5 +10,4 @@ class ThymeServiceProvider extends ServiceProvider
     {
         $this->app->register(PostTypeServiceProvider::class);
     }
-
 }

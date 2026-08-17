@@ -8,7 +8,8 @@
     },
     "require-dev": {
         "pestphp/pest": "^5.1",
-        "laravel/pao": "^1.1"
+        "laravel/pao": "^1.1",
+        "laravel/pint": "^1.30"
     },
     "license": "MIT",
     "autoload": {
@@ -33,7 +34,7 @@
         "acorn": {
             "providers": [
                 "Thyme\\Framework\\Providers\\ThymeServiceProvider"
-            ],
+            ]
         }
     }
 }

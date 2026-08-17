@@ -13,14 +13,15 @@ use Illuminate\Support\Collection;
  * @property string $post_status
  * @property string $post_type
  * @property int $post_author
- *
  * @property-read  User $author
  * @property-read Collection<int, PostMeta> $meta
  */
 class Post extends Model
 {
     protected $table = 'posts';
+
     protected $primaryKey = 'ID';
+
     public $timestamps = false;
 
     protected $fillable = [

@@ -27,7 +27,7 @@ class RegistrarLocation extends PostType
 }
 
 it('registers a single post type class', function () {
-    $registrar = new PostTypeRegistrar();
+    $registrar = new PostTypeRegistrar;
     $registrar->add(RegistrarEvent::class);
 
     expect($registrar->all())->toBe([RegistrarEvent::class]);
@@ -38,7 +38,7 @@ it('registers a single post type class', function () {
 });
 
 it('registers multiple post type classes', function () {
-    $registrar = new PostTypeRegistrar();
+    $registrar = new PostTypeRegistrar;
     $registrar->addMany([RegistrarEvent::class, RegistrarLocation::class]);
 
     $registrar->register();
@@ -48,12 +48,12 @@ it('registers multiple post type classes', function () {
 });
 
 it('throws when adding a non-post-type class', function () {
-    $registrar = new PostTypeRegistrar();
+    $registrar = new PostTypeRegistrar;
     $registrar->add(stdClass::class);
 })->throws(InvalidArgumentException::class, 'must extend');
 
 it('hooks registration into the init action', function () {
-    $registrar = new PostTypeRegistrar();
+    $registrar = new PostTypeRegistrar;
     $registrar->add(RegistrarEvent::class);
     $registrar->registerOnInit();
 

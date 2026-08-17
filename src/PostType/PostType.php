@@ -40,7 +40,7 @@ abstract class PostType
      */
     public function plural(): string
     {
-        return $this->singular() . 's';
+        return $this->singular().'s';
     }
 
     /**
@@ -76,31 +76,31 @@ abstract class PostType
         $plural = $this->plural();
 
         return [
-            'name'                  => $plural,
-            'singular_name'         => $singular,
-            'add_new'               => 'Add New',
-            'add_new_item'          => "Add New {$singular}",
-            'edit_item'             => "Edit {$singular}",
-            'new_item'              => "New {$singular}",
-            'view_item'             => "View {$singular}",
-            'view_items'            => "View {$plural}",
-            'search_items'          => "Search {$plural}",
-            'not_found'             => "No {$plural} found.",
-            'not_found_in_trash'    => "No {$plural} found in trash.",
-            'parent_item_colon'     => "Parent {$singular}:",
-            'all_items'             => "All {$plural}",
-            'archives'              => "{$singular} Archives",
-            'attributes'            => "{$singular} Attributes",
-            'insert_into_item'      => "Insert into {$singular}",
+            'name' => $plural,
+            'singular_name' => $singular,
+            'add_new' => 'Add New',
+            'add_new_item' => "Add New {$singular}",
+            'edit_item' => "Edit {$singular}",
+            'new_item' => "New {$singular}",
+            'view_item' => "View {$singular}",
+            'view_items' => "View {$plural}",
+            'search_items' => "Search {$plural}",
+            'not_found' => "No {$plural} found.",
+            'not_found_in_trash' => "No {$plural} found in trash.",
+            'parent_item_colon' => "Parent {$singular}:",
+            'all_items' => "All {$plural}",
+            'archives' => "{$singular} Archives",
+            'attributes' => "{$singular} Attributes",
+            'insert_into_item' => "Insert into {$singular}",
             'uploaded_to_this_item' => "Uploaded to this {$singular}",
-            'featured_image'        => 'Featured Image',
-            'set_featured_image'    => 'Set featured image',
+            'featured_image' => 'Featured Image',
+            'set_featured_image' => 'Set featured image',
             'remove_featured_image' => 'Remove featured image',
-            'use_featured_image'    => "Use as featured image",
-            'menu_name'             => $plural,
-            'filter_items_list'     => "Filter {$plural} list",
+            'use_featured_image' => 'Use as featured image',
+            'menu_name' => $plural,
+            'filter_items_list' => "Filter {$plural} list",
             'items_list_navigation' => "{$plural} list navigation",
-            'items_list'            => "{$plural} list",
+            'items_list' => "{$plural} list",
         ];
     }
 
@@ -110,20 +110,20 @@ abstract class PostType
     public function args(): array
     {
         return [
-            'labels'             => $this->labels(),
-            'public'             => true,
+            'labels' => $this->labels(),
+            'public' => true,
             'publicly_queryable' => true,
-            'show_ui'            => true,
-            'show_in_menu'       => true,
-            'show_in_rest'       => true,
-            'query_var'          => true,
-            'capability_type'    => 'post',
-            'has_archive'        => true,
-            'hierarchical'       => false,
-            'menu_position'      => null,
-            'menu_icon'          => $this->icon(),
-            'supports'           => $this->supports(),
-            'rewrite'            => ['slug' => $this->rewriteSlug()],
+            'show_ui' => true,
+            'show_in_menu' => true,
+            'show_in_rest' => true,
+            'query_var' => true,
+            'capability_type' => 'post',
+            'has_archive' => true,
+            'hierarchical' => false,
+            'menu_position' => null,
+            'menu_icon' => $this->icon(),
+            'supports' => $this->supports(),
+            'rewrite' => ['slug' => $this->rewriteSlug()],
         ];
     }
 
