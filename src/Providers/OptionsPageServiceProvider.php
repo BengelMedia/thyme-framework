@@ -21,7 +21,7 @@ class OptionsPageServiceProvider extends ServiceProvider
             $registrar = new OptionsPageRegistrar;
 
             $rootNamespace = $this->app->getNamespace();
-            $rootDirectory = get_template_directory();
+            $rootDirectory = get_stylesheet_directory();
 
             collect(glob($rootDirectory.'/app/OptionsPages/*.php', GLOB_BRACE))->each(function ($file) use ($rootNamespace, $registrar) {
                 $className = $rootNamespace.'OptionsPages\\'.basename($file, '.php');

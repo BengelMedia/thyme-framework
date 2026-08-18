@@ -9,7 +9,9 @@
     "require-dev": {
         "pestphp/pest": "^5.1",
         "laravel/pao": "^1.1",
-        "laravel/pint": "^1.30"
+        "laravel/pint": "^1.30",
+        "php-stubs/acf-pro-stubs": "^6.8",
+        "php-stubs/wordpress-stubs": "^7.0"
     },
     "license": "MIT",
     "autoload": {

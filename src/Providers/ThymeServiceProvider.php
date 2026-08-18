@@ -14,5 +14,6 @@ class ThymeServiceProvider extends ServiceProvider
 
         $this->app->register(PostTypeServiceProvider::class);
         $this->app->register(OptionsPageServiceProvider::class);
+        $this->app->register(BlockServiceProvider::class);
     }
 }
