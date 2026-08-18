@@ -79,11 +79,25 @@ class Block
             'render_callback' => [$this, 'render'],
         ]);
 
+        $this->registerFieldGroup($registered['name']);
+    }
+
+    /**
+     * Register the ACF field group for this block.
+     */
+    protected function registerFieldGroup(string $blockName): void
+    {
+        $fields = $this->fields();
+
+        if ($fields === [] || ! function_exists('register_extended_field_group')) {
+            return;
+        }
+
         register_extended_field_group([
             'title' => $this->getTitle(),
-            'fields' => $this->fields(),
+            'fields' => $fields,
             'location' => [
-                Location::where('block', $registered['name']),
+                Location::where('block', $blockName),
             ],
         ]);
     }

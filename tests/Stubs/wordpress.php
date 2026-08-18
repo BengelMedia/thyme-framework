@@ -1,12 +1,25 @@
 <?php
 
 declare(strict_types=1);
+use Extended\ACF\Key;
 
 $GLOBALS['_registered_post_types'] = [];
 $GLOBALS['_registered_actions'] = [];
 $GLOBALS['_registered_options_pages'] = [];
 $GLOBALS['_registered_options_sub_pages'] = [];
 $GLOBALS['_registered_field_groups'] = [];
+$GLOBALS['_registered_blocks'] = [];
+
+if (! function_exists('acf_register_block_type')) {
+    function acf_register_block_type(array $args): array
+    {
+        $name = $args['name'];
+
+        $GLOBALS['_registered_blocks'][$name] = $args;
+
+        return $args + ['name' => $name];
+    }
+}
 
 if (! function_exists('register_post_type')) {
     function register_post_type(string $post_type, array|string $args = []): void
@@ -107,4 +120,22 @@ function registered_field_groups(): array
 function reset_registered_field_groups(): void
 {
     $GLOBALS['_registered_field_groups'] = [];
+}
+
+function reset_acf_field_keys(): void
+{
+    $reflection = new ReflectionClass(Key::class);
+    $property = $reflection->getProperty('keys');
+    $property->setAccessible(true);
+    $property->setValue(null, []);
+}
+
+function registered_block(string $name): ?array
+{
+    return $GLOBALS['_registered_blocks'][$name] ?? null;
+}
+
+function reset_registered_blocks(): void
+{
+    $GLOBALS['_registered_blocks'] = [];
 }

@@ -1,0 +1,19 @@
+<?php
+
+namespace {{ namespace }};
+
+use Thyme\Framework\Blocks\Block;
+use Thyme\Framework\Icons\DashIcons;
+
+class {{ class }} extends Block
+{
+    protected ?string $title = 'DummyTitle';
+
+    protected string $name = 'DummyName';
+
+    protected ?string $description = 'DummyDescription';
+
+    protected ?string $category = 'DummyCategory';
+
+    protected DashIcons $icon = DashIcons::DummyIcon;
+}

@@ -4,6 +4,7 @@ namespace Thyme\Framework\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Thyme\Framework\Blocks\BlockRegistrar;
+use Thyme\Framework\Console\Commands\MakeBlockCommand;
 
 class BlockServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,10 @@ class BlockServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        $this->commands([
+            MakeBlockCommand::class,
+        ]);
+
         $this->app->make(BlockRegistrar::class)->registerOnInit();
     }
 }
