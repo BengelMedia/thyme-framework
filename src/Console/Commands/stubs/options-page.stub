@@ -3,6 +3,8 @@
 namespace {{ namespace }};
 
 use Thyme\Framework\Options\OptionsPage;
+use Thyme\Framework\Icons\DashIcons;
+use Extended\ACF\Fields\Field;
 
 class {{ class }} extends OptionsPage
 {
@@ -21,8 +23,21 @@ class {{ class }} extends OptionsPage
         return 'DummyMenuTitle';
     }
 
+    /**
+    * The icon of the options page.
+    */
     public function icon(): string
     {
-        return 'DummyIcon';
+        return DashIcons::Calendar->value;
+    }
+
+    /**
+     * ACF fields shown on this options page.
+     *
+     * @return Field[]
+     */
+    public function fields(): array
+    {
+        return [];
     }
 }

@@ -3,6 +3,7 @@
 namespace {{ namespace }};
 
 use Thyme\Framework\PostType\PostType;
+use Thyme\Framework\Icons\DashIcons;
 
 class {{ class }} extends PostType
 {
@@ -23,6 +24,6 @@ class {{ class }} extends PostType
 
     public function icon(): string
     {
-        return 'DummyIcon';
+        return DashIcons::Calendar->value;
     }
 }
