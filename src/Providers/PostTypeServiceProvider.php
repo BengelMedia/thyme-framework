@@ -23,7 +23,7 @@ class PostTypeServiceProvider extends ServiceProvider
             $rootDirectory = get_stylesheet_directory();
 
             collect(glob($rootDirectory.'/app/PostTypes/*.php', GLOB_BRACE))->each(function ($file) use ($rootNamespace, $registrar) {
-                $className = $rootNamespace.'PostType\\'.basename($file, '.php');
+                $className = $rootNamespace.'PostTypes\\'.basename($file, '.php');
                 $registrar->add($className);
             });
 

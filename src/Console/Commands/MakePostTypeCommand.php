@@ -64,11 +64,16 @@ class MakePostTypeCommand extends GeneratorCommand
 
         $className = class_basename($name);
 
-        return $this
-            ->replaceSlug($stub, $this->getSlug($className))
-            ->replaceSingular($stub, $this->getSingular($className))
-            ->replacePlural($stub, $this->getPlural($className))
-            ->replaceIcon($stub, $this->option('icon'));
+        return $this->replaceIcon(
+            $this->replacePlural(
+                $this->replaceSingular(
+                    $this->replaceSlug($stub, $this->getSlug($className)),
+                    $this->getSingular($className)
+                ),
+                $this->getPlural($className)
+            ),
+            $this->option('icon')
+        );
     }
 
     /**

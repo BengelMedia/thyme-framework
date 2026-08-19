@@ -64,11 +64,16 @@ class MakeOptionsPageCommand extends GeneratorCommand
 
         $className = class_basename($name);
 
-        return $this
-            ->replaceSlug($stub, $this->getSlug($className))
-            ->replacePageTitle($stub, $this->getPageTitle($className))
-            ->replaceMenuTitle($stub, $this->getMenuTitle($className))
-            ->replaceIcon($stub, $this->option('icon'));
+        return $this->replaceIcon(
+            $this->replaceMenuTitle(
+                $this->replacePageTitle(
+                    $this->replaceSlug($stub, $this->getSlug($className)),
+                    $this->getPageTitle($className)
+                ),
+                $this->getMenuTitle($className)
+            ),
+            $this->option('icon')
+        );
     }
 
     /**

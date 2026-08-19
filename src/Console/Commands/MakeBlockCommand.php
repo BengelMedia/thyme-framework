@@ -64,12 +64,19 @@ class MakeBlockCommand extends GeneratorCommand
 
         $className = class_basename($name);
 
-        return $this
-            ->replaceName($stub, $this->getBlockName($className))
-            ->replaceTitle($stub, $this->getTitle($className))
-            ->replaceDescription($stub, $this->getDescription())
-            ->replaceCategory($stub, $this->getCategory())
-            ->replaceIcon($stub, $this->option('icon'));
+        return $this->replaceIcon(
+            $this->replaceCategory(
+                $this->replaceDescription(
+                    $this->replaceTitle(
+                        $this->replaceName($stub, $this->getBlockName($className)),
+                        $this->getTitle($className)
+                    ),
+                    $this->getBlockDescription()
+                ),
+                $this->getCategory()
+            ),
+            $this->option('icon')
+        );
     }
 
     /**
@@ -139,7 +146,7 @@ class MakeBlockCommand extends GeneratorCommand
     /**
      * Determine the block description.
      */
-    protected function getDescription(): ?string
+    public function getBlockDescription(): string
     {
         return $this->option('description');
     }
