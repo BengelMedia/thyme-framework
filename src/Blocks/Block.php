@@ -3,7 +3,7 @@
 namespace Thyme\Framework\Blocks;
 
 use Extended\ACF\Location;
-use Roots\Acorn\Assets\Vite;
+use Illuminate\Support\Facades\Vite;
 use Thyme\Framework\Icons\DashIcons;
 
 class Block
@@ -61,8 +61,10 @@ class Block
     public function render(): void
     {
         echo \Roots\view(sprintf(
-            'resources/views/blocks/%s.blade.php', $this->getName()
-        ));
+            'resources/views/blocks/%s.blade.php', $this->getName(),
+        ), [
+            'this' => $this
+        ]);
     }
 
     public function register(): void
@@ -134,7 +136,7 @@ class Block
     private function resolveAssetUrl(string $asset): string
     {
         if ($this->isViteAsset($asset)) {
-            return \Illuminate\Support\Facades\Vite::asset(str_replace('@vite:/', '', $asset));
+            return Vite::asset(str_replace('@vite:/', '', $asset));
         }
 
         return $asset;
