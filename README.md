@@ -84,11 +84,11 @@ The generated class extends `Thyme\\Framework\\Blocks\\Block`. Override its meta
 ```php
 <?php
 
-namespace App\\Blocks;
+namespace App\Blocks;
 
-use Extended\\ACF\\Fields\\Text;
-use Thyme\\Framework\\Blocks\\Block;
-use Thyme\\Framework\\Icons\\DashIcons;
+use Extended\ACF\Fields\Text;
+use Thyme\Framework\Blocks\Block;
+use Thyme\Framework\Icons\DashIcons;
 
 class Hero extends Block
 {
