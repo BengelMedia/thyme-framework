@@ -16,4 +16,14 @@ class {{ class }} extends Block
     protected ?string $category = 'DummyCategory';
 
     protected DashIcons $icon = DashIcons::DummyIcon;
+
+    public function scripts(): array
+    {
+        return ['@vite:/DummyAssetPath.ts'];
+    }
+
+    public function styles(): array
+    {
+        return ['@vite:/DummyAssetPath.css'];
+    }
 }

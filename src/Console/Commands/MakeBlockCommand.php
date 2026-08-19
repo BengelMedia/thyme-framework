@@ -37,7 +37,7 @@ class MakeBlockCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/block.stub';
+        return __DIR__ . '/stubs/block.stub';
     }
 
     /**
@@ -48,7 +48,7 @@ class MakeBlockCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\\Blocks\\'.Str::studly($this->getNameInput());
+        return $rootNamespace . '\\Blocks\\' . Str::studly($this->getNameInput());
     }
 
     /**
@@ -61,7 +61,7 @@ class MakeBlockCommand extends GeneratorCommand
     {
         $name = Str::replaceFirst($this->rootNamespace(), '', $name);
 
-        return base_path(str_replace('\\', '/', $name)).'.php';
+        return base_path(str_replace('\\', '/', $name)) . '.php';
     }
 
     /**
@@ -93,17 +93,16 @@ class MakeBlockCommand extends GeneratorCommand
         $title = $this->getTitle(class_basename($name));
 
         foreach ($this->supportFiles() as $file => $stub) {
-            $path = $directory.'/'.$file;
+            $path = $directory . '/' . str_replace('DummyName', $blockName, $file);
 
             if ($this->files->exists($path)) {
                 continue;
             }
 
-            $contents = $this->files->get($stub);
             $contents = str_replace(
                 ['DummyName', 'DummyTitle'],
                 [$blockName, $title],
-                $contents
+                $this->files->get($stub),
             );
 
             $this->files->put($path, $contents);
@@ -118,9 +117,9 @@ class MakeBlockCommand extends GeneratorCommand
     protected function supportFiles(): array
     {
         return [
-            $this->getBlockName(class_basename($this->qualifyClass($this->getNameInput()))).'.blade.php' => __DIR__.'/stubs/block.blade.stub',
-            $this->getBlockName(class_basename($this->qualifyClass($this->getNameInput()))).'.ts' => __DIR__.'/stubs/block.ts.stub',
-            $this->getBlockName(class_basename($this->qualifyClass($this->getNameInput()))).'.css' => __DIR__.'/stubs/block.css.stub',
+            'DummyName.blade.php' => __DIR__ . '/stubs/block.blade.stub',
+            'DummyName.ts' => __DIR__ . '/stubs/block.ts.stub',
+            'DummyName.css' => __DIR__ . '/stubs/block.css.stub',
         ];
     }
 
@@ -143,13 +142,14 @@ class MakeBlockCommand extends GeneratorCommand
                 $this->replaceDescription(
                     $this->replaceTitle(
                         $this->replaceName($stub, $this->getBlockName($className)),
-                        $this->getTitle($className)
+                        $this->getTitle($className),
                     ),
-                    $this->getBlockDescription()
+                    $this->getBlockDescription(),
                 ),
-                $this->getCategory()
+                $this->getCategory(),
             ),
-            $this->option('icon')
+            $this->option('icon'),
+            $className,
         );
     }
 
@@ -188,9 +188,24 @@ class MakeBlockCommand extends GeneratorCommand
     /**
      * Replace the icon placeholder in the stub.
      */
-    protected function replaceIcon(string $stub, ?string $icon): string
+    protected function replaceIcon(string $stub, ?string $icon, string $className): string
     {
-        return str_replace('DummyIcon', $icon ?? 'MediaAudio', $stub);
+        return $this->replaceAssetPath(
+            str_replace('DummyIcon', $icon ?? 'MediaAudio', $stub),
+            $className,
+        );
+    }
+
+    /**
+     * Replace the asset path placeholder in the stub.
+     */
+    protected function replaceAssetPath(string $stub, string $className): string
+    {
+        return str_replace(
+            'DummyAssetPath',
+            'Blocks/' . $className . '/' . $this->getBlockName($className),
+            $stub,
+        );
     }
 
     /**

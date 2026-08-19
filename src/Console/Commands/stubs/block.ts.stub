@@ -1,0 +1,7 @@
+window.addEventListener('load', () => {
+    const DummyNameBlocks = document.querySelectorAll<HTMLElement>('.DummyName-wrapper');
+
+    DummyNameBlocks.forEach((block) => {
+        console.log('DummyTitle block initialized:', block);
+    });
+});

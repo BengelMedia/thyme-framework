@@ -61,18 +61,18 @@ class Block
 
     public function render(): void
     {
-        $directory = get_stylesheet_directory().'/Blocks/'.class_basename($this);
+        $directory = get_stylesheet_directory() . '/Blocks/' . class_basename($this);
 
         $candidates = [
-            $this->getName().'.blade.php',
-            Str::ucfirst($this->getName()).'.blade.php',
-            class_basename($this).'.blade.php',
+            $this->getName() . '.blade.php',
+            Str::ucfirst($this->getName()) . '.blade.php',
+            class_basename($this) . '.blade.php',
         ];
 
         $viewPath = null;
 
         foreach ($candidates as $candidate) {
-            $path = $directory.'/'.$candidate;
+            $path = $directory . '/' . $candidate;
 
             if (file_exists($path)) {
                 $viewPath = $path;
@@ -86,7 +86,7 @@ class Block
         }
 
         echo view($viewPath, [
-            'block' => $this
+            'block' => $this,
         ]);
     }
 
@@ -182,7 +182,7 @@ class Block
      * @return array|array[]
      */
     private function registerAssets(
-        string $blockName
+        string $blockName,
     ): array {
         $assetData = [
             'script' => [],
@@ -197,7 +197,7 @@ class Block
                 $url,
                 [],
                 null,
-                true
+                true,
             );
             $assetData['script'][] = $slug;
         }
@@ -209,7 +209,7 @@ class Block
                 $slug,
                 $url,
                 [],
-                null
+                null,
             );
             $assetData['style'][] = $slug;
         }
