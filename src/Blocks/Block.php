@@ -64,7 +64,9 @@ class Block
             'views/blocks/%s.blade.php', $this->getName(),
         ));
 
-        echo view($path);
+        echo view($path, [
+            'block' => $this
+        ]);
     }
 
     public function register(): void
