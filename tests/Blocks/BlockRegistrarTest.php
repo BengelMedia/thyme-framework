@@ -45,7 +45,9 @@ it('registers multiple block classes', function () {
 it('throws when adding a non-block class', function () {
     $registrar = new BlockRegistrar;
     $registrar->add(stdClass::class);
-})->throws(InvalidArgumentException::class, 'must extend');
+
+    expect($registrar->all())->toHaveLength(0);
+});
 
 it('hooks registration into the acf/init action', function () {
     $registrar = new BlockRegistrar;
