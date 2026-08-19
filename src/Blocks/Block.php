@@ -3,6 +3,7 @@
 namespace Thyme\Framework\Blocks;
 
 use Extended\ACF\Location;
+use Roots\Acorn\Assets\Vite;
 use Thyme\Framework\Icons\DashIcons;
 
 class Block
@@ -47,6 +48,16 @@ class Block
         return [];
     }
 
+    public function scripts(): array
+    {
+        return [];
+    }
+
+    public function styles(): array
+    {
+        return [];
+    }
+
     public function render(): void
     {
         echo \Roots\view(sprintf(
@@ -60,8 +71,11 @@ class Block
             return;
         }
 
-        $registered = acf_register_block_type([
-            'name' => sprintf('thyme/%s', $this->getName()),
+        $blockName = sprintf('thyme/%s', $this->getName());
+        $assetData = $this->registerAssets($blockName);
+
+        $blockData = [
+            'name' => $blockName,
             'title' => $this->getTitle(),
             'description' => $this->getDescription(),
             'category' => $this->getCategory(),
@@ -77,15 +91,19 @@ class Block
                 ],
             ],
             'render_callback' => [$this, 'render'],
-        ]);
+        ];
 
-        $this->registerFieldGroup($registered['name']);
+        $blockData = array_merge($blockData, $assetData);
+
+        acf_register_block_type($blockData);
+
+        $this->registerFieldGroup($blockName);
     }
 
     /**
      * Register the ACF field group for this block.
      */
-    protected function registerFieldGroup(string $blockName): void
+    private function registerFieldGroup(string $blockName): void
     {
         $fields = $this->fields();
 
@@ -100,5 +118,77 @@ class Block
                 Location::where('block', $blockName),
             ],
         ]);
+    }
+
+    /**
+     * Check if the asset starts with a vite tag
+     */
+    private function isViteAsset(string $asset): bool
+    {
+        return str_starts_with($asset, '@vite:/');
+    }
+
+    /**
+     * Get the URL for an asset
+     */
+    private function resolveAssetUrl(string $asset): string
+    {
+        if ($this->isViteAsset($asset)) {
+            return \Illuminate\Support\Facades\Vite::asset(str_replace('@vite:/', '', $asset));
+        }
+
+        return $asset;
+    }
+
+    /**
+     * Create a slug for the asset
+     */
+    private function resolveAssetSlug(string $blockName, string $asset): string
+    {
+        $assetFileName = pathinfo($asset, PATHINFO_FILENAME);
+        $format = 'thyme/%s/%s';
+
+        return sprintf($format, $blockName, $assetFileName);
+    }
+
+    /**
+     * Register the assets used by the block
+     *
+     * @return array|array[]
+     */
+    private function registerAssets(
+        string $blockName
+    ): array {
+        $assetData = [
+            'script' => [],
+            'style' => [],
+        ];
+
+        foreach ($this->scripts() as $script) {
+            $url = $this->resolveAssetUrl($script);
+            $slug = $this->resolveAssetSlug($blockName, $url);
+            wp_register_script(
+                $slug,
+                $url,
+                [],
+                null,
+                true
+            );
+            $assetData['script'][] = $slug;
+        }
+
+        foreach ($this->styles() as $style) {
+            $url = $this->resolveAssetUrl($style);
+            $slug = $this->resolveAssetSlug($blockName, $url);
+            wp_register_style(
+                $slug,
+                $url,
+                [],
+                null
+            );
+            $assetData['style'][] = $slug;
+        }
+
+        return $assetData;
     }
 }
