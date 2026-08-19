@@ -3,6 +3,7 @@
 namespace Thyme\Framework\Console\Commands;
 
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Support\Str;
 use Roots\Acorn\Console\Commands\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -20,7 +21,7 @@ class MakeBlockCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $description = 'Create a new ACF block class';
+    protected $description = 'Create a new ACF block';
 
     /**
      * The type of class being generated.
@@ -47,7 +48,80 @@ class MakeBlockCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\\Blocks';
+        return $rootNamespace.'\\Blocks\\'.Str::studly($this->getNameInput());
+    }
+
+    /**
+     * Get the destination class path.
+     *
+     * @param  string  $name
+     * @return string
+     */
+    protected function getPath($name)
+    {
+        $name = Str::replaceFirst($this->rootNamespace(), '', $name);
+
+        return base_path(str_replace('\\', '/', $name)).'.php';
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return bool|int|null
+     *
+     * @throws FileNotFoundException
+     */
+    public function handle()
+    {
+        $status = parent::handle();
+
+        if ($status !== false) {
+            $this->createSupportFiles();
+        }
+
+        return $status;
+    }
+
+    /**
+     * Create the blade template, style and script files for the block.
+     */
+    protected function createSupportFiles(): void
+    {
+        $name = $this->qualifyClass($this->getNameInput());
+        $directory = dirname($this->getPath($name));
+        $blockName = $this->getBlockName(class_basename($name));
+        $title = $this->getTitle(class_basename($name));
+
+        foreach ($this->supportFiles() as $file => $stub) {
+            $path = $directory.'/'.$file;
+
+            if ($this->files->exists($path)) {
+                continue;
+            }
+
+            $contents = $this->files->get($stub);
+            $contents = str_replace(
+                ['DummyName', 'DummyTitle'],
+                [$blockName, $title],
+                $contents
+            );
+
+            $this->files->put($path, $contents);
+        }
+    }
+
+    /**
+     * The support files to generate alongside the block class.
+     *
+     * @return array<string, string>
+     */
+    protected function supportFiles(): array
+    {
+        return [
+            $this->getBlockName(class_basename($this->qualifyClass($this->getNameInput()))).'.blade.php' => __DIR__.'/stubs/block.blade.stub',
+            $this->getBlockName(class_basename($this->qualifyClass($this->getNameInput()))).'.ts' => __DIR__.'/stubs/block.ts.stub',
+            $this->getBlockName(class_basename($this->qualifyClass($this->getNameInput()))).'.css' => __DIR__.'/stubs/block.css.stub',
+        ];
     }
 
     /**

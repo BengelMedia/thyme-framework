@@ -24,9 +24,7 @@ class BlockRegistrar
     public function add(string $blockClass): self
     {
         if (! is_subclass_of($blockClass, Block::class)) {
-            throw new InvalidArgumentException(
-                "{$blockClass} must extend ".Block::class
-            );
+            return $this;
         }
 
         $this->blocks[] = $blockClass;

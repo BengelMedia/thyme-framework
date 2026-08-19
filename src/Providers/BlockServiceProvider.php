@@ -16,8 +16,8 @@ class BlockServiceProvider extends ServiceProvider
             $rootNamespace = $this->app->getNamespace();
             $rootDirectory = get_stylesheet_directory();
 
-            collect(glob($rootDirectory.'/app/Blocks/*.php', GLOB_BRACE))->each(function ($file) use ($rootNamespace, $registrar) {
-                $className = $rootNamespace.'Blocks\\'.basename($file, '.php');
+            collect(glob($rootDirectory.'/Blocks/*/*.php'))->each(function ($file) use ($rootNamespace, $registrar) {
+                $className = $rootNamespace.'Blocks\\'.basename(dirname($file)).'\\'.basename($file, '.php');
                 $registrar->add($className);
             });
 

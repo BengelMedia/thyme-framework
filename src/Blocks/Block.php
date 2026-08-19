@@ -4,6 +4,7 @@ namespace Thyme\Framework\Blocks;
 
 use Extended\ACF\Location;
 use Illuminate\Support\Facades\Vite;
+use Illuminate\Support\Str;
 use Thyme\Framework\Icons\DashIcons;
 
 class Block
@@ -60,11 +61,31 @@ class Block
 
     public function render(): void
     {
-        $path = resource_path(sprintf(
-            'views/blocks/%s.blade.php', $this->getName(),
-        ));
+        $directory = get_stylesheet_directory().'/Blocks/'.class_basename($this);
 
-        echo view($path, [
+        $candidates = [
+            $this->getName().'.blade.php',
+            Str::ucfirst($this->getName()).'.blade.php',
+            class_basename($this).'.blade.php',
+        ];
+
+        $viewPath = null;
+
+        foreach ($candidates as $candidate) {
+            $path = $directory.'/'.$candidate;
+
+            if (file_exists($path)) {
+                $viewPath = $path;
+
+                break;
+            }
+        }
+
+        if ($viewPath === null) {
+            return;
+        }
+
+        echo view($viewPath, [
             'block' => $this
         ]);
     }
