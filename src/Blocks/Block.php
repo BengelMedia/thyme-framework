@@ -60,11 +60,11 @@ class Block
 
     public function render(): void
     {
-        echo \Roots\view(sprintf(
-            'resources/views/blocks/%s.blade.php', $this->getName(),
-        ), [
-            'this' => $this
-        ]);
+        $path = resource_path(sprintf(
+            'views/blocks/%s.blade.php', $this->getName(),
+        ));
+
+        echo view($path);
     }
 
     public function register(): void
@@ -97,9 +97,9 @@ class Block
 
         $blockData = array_merge($blockData, $assetData);
 
-        acf_register_block_type($blockData);
+        $registeredBlock = acf_register_block_type($blockData);
 
-        $this->registerFieldGroup($blockName);
+        $this->registerFieldGroup($registeredBlock['name']);
     }
 
     /**
