@@ -11,17 +11,17 @@ class BlockServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(BlockRegistrar::class, function () {
-            $registrar = new BlockRegistrar();
+            $registrar = new BlockRegistrar;
 
             $rootNamespace = $this->app->getNamespace();
             $rootDirectory = get_stylesheet_directory();
 
-            collect(glob($rootDirectory . '/Blocks/*/*.php'))->each(function ($file) use ($rootNamespace, $registrar) {
+            collect(glob($rootDirectory.'/Blocks/*/*.php'))->each(function ($file) use ($rootNamespace, $registrar) {
                 if (str_ends_with($file, '.blade.php')) {
                     return;
                 }
 
-                $className = $rootNamespace . 'Blocks\\' . basename(dirname($file)) . '\\' . basename($file, '.php');
+                $className = $rootNamespace.'Blocks\\'.basename(dirname($file)).'\\'.basename($file, '.php');
                 $registrar->add($className);
             });
 

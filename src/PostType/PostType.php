@@ -2,7 +2,10 @@
 
 namespace Thyme\Framework\PostType;
 
+use Extended\ACF\Location;
 use InvalidArgumentException;
+use Thyme\Framework\Contracts\HasFields;
+use Thyme\Framework\Helpers\AcfRegistry;
 use Thyme\Framework\Icons\DashIcons;
 use Thyme\Framework\Models\Post;
 
@@ -21,7 +24,7 @@ use Thyme\Framework\Models\Post;
  *     public function icon(): string { return 'dashicons-calendar'; }
  * }
  */
-abstract class PostType
+abstract class PostType implements HasFields
 {
     /**
      * The WordPress post type slug. Must be unique and <= 20 characters.
@@ -58,6 +61,11 @@ abstract class PostType
     public function supports(): array
     {
         return ['title', 'editor', 'thumbnail'];
+    }
+
+    public function fields(): array
+    {
+        return [];
     }
 
     /**
@@ -162,6 +170,14 @@ abstract class PostType
         $this->validateSlug($slug);
 
         register_post_type($slug, $this->args());
+
+        AcfRegistry::registerFields(
+            $this->singular(),
+            $this,
+            Location::where(
+                'post_type', $this->slug()
+            )
+        );
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 namespace Thyme\Framework\Providers;
+
 use Illuminate\Support\ServiceProvider;
 use Thyme\Framework\Directives;
 

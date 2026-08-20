@@ -26,4 +26,9 @@ class {{ class }} extends PostType
     {
         return DashIcons::Calendar->value;
     }
+
+    public function fields(): array
+    {
+        return [];
+    }
 }

@@ -2,10 +2,13 @@
 
 declare(strict_types=1);
 
+use Extended\ACF\Fields\Text;
 use Thyme\Framework\PostType\PostType;
 
 beforeEach(function () {
     reset_registered_post_types();
+    reset_registered_field_groups();
+    reset_acf_field_keys();
 });
 
 class BasicEvent extends PostType
@@ -48,6 +51,41 @@ class CustomEvent extends PostType
         return 'events';
     }
 }
+
+class EventWithFields extends PostType
+{
+    public function slug(): string
+    {
+        return 'event_with_fields';
+    }
+
+    public function fields(): array
+    {
+        return [
+            Text::make('Heading', 'heading')->required(),
+            Text::make('Subheading', 'subheading'),
+        ];
+    }
+}
+
+class EventWithEmptyFields extends PostType
+{
+    public function slug(): string
+    {
+        return 'empty_event';
+    }
+
+    public function fields(): array
+    {
+        return [];
+    }
+}
+
+it('returns an empty array of fields by default', function () {
+    $event = new BasicEvent;
+
+    expect($event->fields())->toBe([]);
+});
 
 it('registers a post type with default values', function () {
     $event = new BasicEvent;
@@ -108,3 +146,30 @@ it('throws on slugs with invalid characters', function () {
 
     $invalid->register();
 })->throws(InvalidArgumentException::class, 'may only contain lowercase letters');
+
+it('registers the field group for the post type', function () {
+    $event = new EventWithFields;
+    $event->register();
+
+    $groups = registered_field_groups();
+
+    expect($groups)->toHaveCount(1)
+        ->and($groups[0]['title'])->toBe('Event_with_fields')
+        ->and($groups[0]['location'])->toBe([
+            [
+                ['param' => 'post_type', 'operator' => '==', 'value' => 'event_with_fields'],
+            ],
+        ])
+        ->and($groups[0]['fields'])->toHaveCount(2)
+        ->and($groups[0]['fields'][0]['label'])->toBe('Heading')
+        ->and($groups[0]['fields'][0]['name'])->toBe('heading')
+        ->and($groups[0]['fields'][1]['label'])->toBe('Subheading')
+        ->and($groups[0]['fields'][1]['name'])->toBe('subheading');
+});
+
+it('does not register a field group when there are no fields', function () {
+    $event = new EventWithEmptyFields;
+    $event->register();
+
+    expect(registered_field_groups())->toBeEmpty();
+});

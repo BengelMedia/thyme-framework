@@ -5,6 +5,8 @@ namespace Thyme\Framework\Options;
 use Extended\ACF\Fields\Field;
 use Extended\ACF\Location;
 use InvalidArgumentException;
+use Thyme\Framework\Contracts\HasFields;
+use Thyme\Framework\Helpers\AcfRegistry;
 use Thyme\Framework\Icons\DashIcons;
 
 /**
@@ -24,7 +26,7 @@ use Thyme\Framework\Icons\DashIcons;
  *     public function icon(): string { return 'dashicons-star-filled'; }
  * }
  */
-abstract class OptionsPage
+abstract class OptionsPage implements HasFields
 {
     /**
      * The ACF options page slug (menu_slug).
@@ -170,27 +172,11 @@ abstract class OptionsPage
             acf_add_options_page($this->args());
         }
 
-        $this->registerFieldGroup();
-    }
-
-    /**
-     * Register the ACF field group for this options page.
-     */
-    protected function registerFieldGroup(): void
-    {
-        $fields = $this->fields();
-
-        if ($fields === [] || ! function_exists('register_extended_field_group')) {
-            return;
-        }
-
-        register_extended_field_group([
-            'title' => $this->fieldGroupTitle(),
-            'fields' => $fields,
-            'location' => [
-                Location::where('options_page', $this->slug()),
-            ],
-        ]);
+        AcfRegistry::registerFields(
+            $this->fieldGroupTitle(),
+            $this,
+            Location::where('options_page', $this->slug())
+        );
     }
 
     /**

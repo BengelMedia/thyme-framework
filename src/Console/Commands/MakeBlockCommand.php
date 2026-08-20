@@ -37,7 +37,7 @@ class MakeBlockCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/stubs/block.stub';
+        return __DIR__.'/stubs/block.stub';
     }
 
     /**
@@ -48,7 +48,7 @@ class MakeBlockCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\\Blocks\\' . Str::studly($this->getNameInput());
+        return $rootNamespace.'\\Blocks\\'.Str::studly($this->getNameInput());
     }
 
     /**
@@ -61,7 +61,7 @@ class MakeBlockCommand extends GeneratorCommand
     {
         $name = Str::replaceFirst($this->rootNamespace(), '', $name);
 
-        return base_path(str_replace('\\', '/', $name)) . '.php';
+        return base_path(str_replace('\\', '/', $name)).'.php';
     }
 
     /**
@@ -93,7 +93,7 @@ class MakeBlockCommand extends GeneratorCommand
         $title = $this->getTitle(class_basename($name));
 
         foreach ($this->supportFiles() as $file => $stub) {
-            $path = $directory . '/' . str_replace('DummyName', $blockName, $file);
+            $path = $directory.'/'.str_replace('DummyName', $blockName, $file);
 
             if ($this->files->exists($path)) {
                 continue;
@@ -117,9 +117,9 @@ class MakeBlockCommand extends GeneratorCommand
     protected function supportFiles(): array
     {
         return [
-            'DummyName.blade.php' => __DIR__ . '/stubs/block.blade.stub',
-            'DummyName.ts' => __DIR__ . '/stubs/block.ts.stub',
-            'DummyName.css' => __DIR__ . '/stubs/block.css.stub',
+            'DummyName.blade.php' => __DIR__.'/stubs/block.blade.stub',
+            'DummyName.ts' => __DIR__.'/stubs/block.ts.stub',
+            'DummyName.css' => __DIR__.'/stubs/block.css.stub',
         ];
     }
 
@@ -203,7 +203,7 @@ class MakeBlockCommand extends GeneratorCommand
     {
         return str_replace(
             'DummyAssetPath',
-            'Blocks/' . $className . '/' . $this->getBlockName($className),
+            'Blocks/'.$className.'/'.$this->getBlockName($className),
             $stub,
         );
     }
