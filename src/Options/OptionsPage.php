@@ -62,15 +62,7 @@ abstract class OptionsPage implements HasFields
      */
     public function position(): ?int
     {
-        return null;
-    }
-
-    /**
-     * The capability required to access this options page.
-     */
-    public function capability(): string
-    {
-        return 'edit_themes';
+        return 21;
     }
 
     /**
@@ -138,19 +130,16 @@ abstract class OptionsPage implements HasFields
      */
     public function args(): array
     {
-        return array_filter([
+        return [
             'page_title' => $this->pageTitle(),
-            'menu_title' => $this->menuTitle(),
             'menu_slug' => $this->slug(),
-            'capability' => $this->capability(),
             'position' => $this->position(),
-            'parent_slug' => $this->parentSlug(),
             'icon_url' => $this->icon(),
             'redirect' => $this->redirect(),
             'autoload' => $this->autoload(),
             'update_button' => $this->updateButton(),
             'updated_message' => $this->updatedMessage(),
-        ], fn ($value) => $value !== null);
+        ];
     }
 
     /**
