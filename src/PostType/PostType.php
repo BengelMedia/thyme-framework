@@ -26,6 +26,8 @@ use Thyme\Framework\Models\Post;
  */
 abstract class PostType implements HasFields
 {
+    public string $editor = 'block';
+
     /**
      * The WordPress post type slug. Must be unique and <= 20 characters.
      */
@@ -178,6 +180,17 @@ abstract class PostType implements HasFields
                 'post_type', $this->slug()
             )
         );
+
+        if ($this->editor === 'classic') {
+            \add_filter('use_block_editor_for_post_type', function ($useBlockEditor, $post) use ($slug) {
+                if ($post->post_type === $slug) {
+                    return false;
+                }
+
+                return $useBlockEditor;
+            }, 10, 2);
+        }
+
     }
 
     /**

@@ -34,9 +34,12 @@ add_action('after_setup_theme', function () {
 ## Easy post type registration
 ```php
 use Thyme\Framework\PostType\PostType;
+use Thyme\Framework\PostType\HasClassicEditor;
 use Thyme\Framework\Icons\DashIcons;
 
 class Event extends PostType {
+    use HasClassicEditor;
+    
     public function slug(): string { return 'event'; }
     public function singular(): string { return 'Event'; }
     public function plural(): string { return 'Events'; }
