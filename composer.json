@@ -32,6 +32,14 @@
         }
     },
 
+    "scripts": {
+        "test": "pest",
+        "lint": [
+            "pint",
+            "pest"
+        ]
+    },
+
     "extra": {
         "acorn": {
             "providers": [
