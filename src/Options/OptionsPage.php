@@ -62,7 +62,7 @@ abstract class OptionsPage implements HasFields
      */
     public function position(): ?int
     {
-        return 21;
+        return null;
     }
 
     /**
@@ -72,6 +72,14 @@ abstract class OptionsPage implements HasFields
     public function parentSlug(): ?string
     {
         return null;
+    }
+
+    /**
+     * The capability required to access the options page.
+     */
+    public function capability(): string
+    {
+        return 'edit_themes';
     }
 
     /**
@@ -130,16 +138,33 @@ abstract class OptionsPage implements HasFields
      */
     public function args(): array
     {
-        return [
+        $args = [
             'page_title' => $this->pageTitle(),
+            'menu_title' => $this->menuTitle(),
             'menu_slug' => $this->slug(),
-            'position' => $this->position(),
             'icon_url' => $this->icon(),
+            'capability' => $this->capability(),
             'redirect' => $this->redirect(),
             'autoload' => $this->autoload(),
-            'update_button' => $this->updateButton(),
-            'updated_message' => $this->updatedMessage(),
         ];
+
+        if ($this->position() !== null) {
+            $args['position'] = $this->position();
+        }
+
+        if ($this->parentSlug() !== null) {
+            $args['parent_slug'] = $this->parentSlug();
+        }
+
+        if ($this->updateButton() !== null) {
+            $args['update_button'] = $this->updateButton();
+        }
+
+        if ($this->updatedMessage() !== null) {
+            $args['updated_message'] = $this->updatedMessage();
+        }
+
+        return $args;
     }
 
     /**

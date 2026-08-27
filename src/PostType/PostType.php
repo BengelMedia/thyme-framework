@@ -174,7 +174,7 @@ abstract class PostType implements HasFields
         register_post_type($slug, $this->args());
 
         AcfRegistry::registerFields(
-            $this->plural(),
+            $this->singular(),
             $this,
             Location::where(
                 'post_type', $this->slug()
