@@ -4,5 +4,8 @@ namespace Thyme\Framework\PostType;
 
 trait HasClassicEditor
 {
-    public string $editor = 'classic';
+    public function getEditor()
+    {
+        return 'classic';
+    }
 }

@@ -181,16 +181,7 @@ abstract class PostType implements HasFields
             )
         );
 
-        if ($this->editor === 'classic') {
-            \add_filter('use_block_editor_for_post_type', function ($useBlockEditor, $post) use ($slug) {
-                if ($post->post_type === $slug) {
-                    return false;
-                }
-
-                return $useBlockEditor;
-            }, 10, 2);
-        }
-
+        $this->setEditor();
     }
 
     /**
@@ -214,6 +205,21 @@ abstract class PostType implements HasFields
             throw new InvalidArgumentException(
                 "Post type slug '{$slug}' may only contain lowercase letters, numbers, hyphens and underscores."
             );
+        }
+    }
+
+    private function setEditor(): void
+    {
+        if (method_exists($this, 'getEditor')) {
+            $editor = $this->getEditor();
+            if($editor !== 'classic') return;
+            \add_filter('use_block_editor_for_post_type', function ($useBlockEditor, $post) use ($slug) {
+                if ($post->post_type === $slug) {
+                    return false;
+                }
+
+                return $useBlockEditor;
+            }, 10, 2);
         }
     }
 }
