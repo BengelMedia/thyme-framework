@@ -14,12 +14,14 @@ class Component implements HasRegistration
         $this->data = $data;
     }
 
-    public static function render(array $data = []): void
+    public static function render(array $data = [], bool $echo = true): string
     {
-        (new self($data))->renderComponent();
+        return (new static($data))->renderComponent($echo);
     }
 
-    public function renderComponent(): void
+    public function renderComponent(
+        bool $echo = true
+    ): string
     {
         $directory = get_stylesheet_directory().'/Components/'.class_basename($this);
 
@@ -44,13 +46,20 @@ class Component implements HasRegistration
         }
 
         if ($viewPath === null) {
-            return;
+            var_dump("No view path");
+            return "";
         }
 
-        echo view($viewPath, [
+        $view =  view($viewPath, [
             'component' => $this,
             ...$this->data,
         ]);
+
+        if($echo) {
+            echo $view;
+        }
+
+        return $view;
 
     }
 
