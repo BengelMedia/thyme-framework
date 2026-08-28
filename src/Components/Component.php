@@ -21,8 +21,7 @@ class Component implements HasRegistration
 
     public function renderComponent(
         bool $echo = true
-    ): string
-    {
+    ): string {
         $directory = get_stylesheet_directory().'/Components/'.class_basename($this);
 
         $name = class_basename($this);
@@ -46,16 +45,17 @@ class Component implements HasRegistration
         }
 
         if ($viewPath === null) {
-            var_dump("No view path");
-            return "";
+            var_dump('No view path');
+
+            return '';
         }
 
-        $view =  view($viewPath, [
+        $view = view($viewPath, [
             'component' => $this,
             ...$this->data,
         ]);
 
-        if($echo) {
+        if ($echo) {
             echo $view;
         }
 

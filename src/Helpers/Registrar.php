@@ -45,8 +45,8 @@ abstract class Registrar implements RegistrarContract
 
     /**
      * Register the registrar on an action
-     * @param int $priority the wp_action priority
-     * @return void
+     *
+     * @param  int  $priority  the wp_action priority
      */
     abstract public function registerOnInit(int $priority = 10): void;
 

@@ -2,30 +2,29 @@
 
 namespace Thyme\Framework\Contracts;
 
-
 /**
  * A registrar is a class that can register other classes that implement the HasRegistration interface.
+ *
  * @template T of HasRegistration
  */
 interface Registrar
 {
     /**
      * Add a class to the registrar.
-     * @param class-string<T> $className
-     * @return self
+     *
+     * @param  class-string<T>  $className
      */
     public function add(string $className): self;
 
     /**
      * Add multiple classes to the registrar
-     * @param class-string<T>[] $classNames
-     * @return self
+     *
+     * @param  class-string<T>[]  $classNames
      */
     public function addMany(array $classNames): self;
 
     /**
      * Register all the children
-     * @return void
      */
     public function register(): void;
 
@@ -36,8 +35,8 @@ interface Registrar
 
     /**
      * Register the registrar on an action
-     * @param int $priority the wp_action priority
-     * @return void
+     *
+     * @param  int  $priority  the wp_action priority
      */
     public function registerOnInit(int $priority = 10): void;
 }

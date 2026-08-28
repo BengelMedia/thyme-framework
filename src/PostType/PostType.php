@@ -217,7 +217,9 @@ abstract class PostType implements HasFields, HasRegistration
             $editor = $this->editor;
         }
 
-        if($editor !== 'classic') return;
+        if ($editor !== 'classic') {
+            return;
+        }
         $slug = $this->slug();
 
         \add_filter('use_block_editor_for_post_type', function ($useBlockEditor, $post_type) use ($slug) {
@@ -228,5 +230,4 @@ abstract class PostType implements HasFields, HasRegistration
             return $useBlockEditor;
         }, 10, 2);
     }
-
 }

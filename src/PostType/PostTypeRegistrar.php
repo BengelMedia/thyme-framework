@@ -7,6 +7,7 @@ use Thyme\Framework\Helpers\Registrar;
 
 /**
  * Collects PostType classes and registers them with WordPress.
+ *
  * @extends Registrar<PostType>
  */
 class PostTypeRegistrar extends Registrar
@@ -15,7 +16,7 @@ class PostTypeRegistrar extends Registrar
     {
         if (! is_a($className, PostType::class, true)) {
             throw new InvalidArgumentException(
-                "Class [{$className}] must extend " . PostType::class
+                "Class [{$className}] must extend ".PostType::class
             );
         }
 

@@ -16,7 +16,7 @@ class OptionsPageRegistrar extends Registrar
     {
         if (! is_a($className, OptionsPage::class, true)) {
             throw new InvalidArgumentException(
-                "Class [{$className}] must extend " . OptionsPage::class
+                "Class [{$className}] must extend ".OptionsPage::class
             );
         }
 
