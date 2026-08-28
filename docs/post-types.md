@@ -1,5 +1,6 @@
 ---
 title: Post Types
+layout: default
 nav_order: 3
 ---
 
