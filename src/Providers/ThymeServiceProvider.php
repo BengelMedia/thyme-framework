@@ -6,15 +6,20 @@ use Illuminate\Support\ServiceProvider;
 
 class ThymeServiceProvider extends ServiceProvider
 {
+    protected array $providers = [
+        PostTypeServiceProvider::class,
+        OptionsPageServiceProvider::class,
+        BlockServiceProvider::class,
+        DirectivesServiceProvider::class
+    ];
+
     public function register()
     {
         if (function_exists('do_action')) {
             do_action('registering_thyme');
         }
 
-        $this->app->register(PostTypeServiceProvider::class);
-        $this->app->register(OptionsPageServiceProvider::class);
-        $this->app->register(BlockServiceProvider::class);
-        $this->app->register(DirectivesServiceProvider::class);
+        collect($this->providers)
+            ->each(fn ($provider) => $this->app->register($provider));
     }
 }
