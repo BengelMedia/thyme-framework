@@ -10,7 +10,8 @@ class ThymeServiceProvider extends ServiceProvider
         PostTypeServiceProvider::class,
         OptionsPageServiceProvider::class,
         BlockServiceProvider::class,
-        DirectivesServiceProvider::class
+        DirectivesServiceProvider::class,
+        ComponentServiceProvider::class,
     ];
 
     public function register()

@@ -1,0 +1,9 @@
+<?php
+
+namespace {{ namespace }};
+
+use Thyme\Framework\Components\Component;
+
+class {{ class }} extends Component
+{
+}
