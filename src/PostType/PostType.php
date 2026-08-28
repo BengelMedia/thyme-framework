@@ -5,6 +5,7 @@ namespace Thyme\Framework\PostType;
 use Extended\ACF\Location;
 use InvalidArgumentException;
 use Thyme\Framework\Contracts\HasFields;
+use Thyme\Framework\Contracts\HasRegistration;
 use Thyme\Framework\Helpers\AcfRegistry;
 use Thyme\Framework\Icons\DashIcons;
 use Thyme\Framework\Models\Post;
@@ -24,7 +25,7 @@ use Thyme\Framework\Models\Post;
  *     public function icon(): string { return 'dashicons-calendar'; }
  * }
  */
-abstract class PostType implements HasFields
+abstract class PostType implements HasFields, HasRegistration
 {
     public string $editor = 'block';
 

@@ -6,6 +6,7 @@ use Extended\ACF\Fields\Field;
 use Extended\ACF\Location;
 use InvalidArgumentException;
 use Thyme\Framework\Contracts\HasFields;
+use Thyme\Framework\Contracts\HasRegistration;
 use Thyme\Framework\Helpers\AcfRegistry;
 use Thyme\Framework\Icons\DashIcons;
 
@@ -26,7 +27,7 @@ use Thyme\Framework\Icons\DashIcons;
  *     public function icon(): string { return 'dashicons-star-filled'; }
  * }
  */
-abstract class OptionsPage implements HasFields
+abstract class OptionsPage implements HasFields, HasRegistration
 {
     /**
      * The ACF options page slug (menu_slug).

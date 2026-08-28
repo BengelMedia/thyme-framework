@@ -6,10 +6,11 @@ use Extended\ACF\Location;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\Str;
 use Thyme\Framework\Contracts\HasFields;
+use Thyme\Framework\Contracts\HasRegistration;
 use Thyme\Framework\Helpers\AcfRegistry;
 use Thyme\Framework\Icons\DashIcons;
 
-class Block implements HasFields
+class Block implements HasFields, HasRegistration
 {
     protected ?string $title = null;
 
