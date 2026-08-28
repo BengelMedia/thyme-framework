@@ -1,0 +1,17 @@
+title: Thyme Framework
+description: A framework for WordPress block themes, built on Roots/Acorn
+theme: just-the-docs
+
+url: https://bengelmedia.github.io
+baseurl: /thyme-framework
+
+aux_links:
+  "Thyme Framework on GitHub":
+    - https://github.com/BengelMedia/thyme-framework
+
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - Gemfile
+  - Gemfile.lock
+  - vendor/

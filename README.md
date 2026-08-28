@@ -1,4 +1,7 @@
 # Thyme Framework
+
+Full documentation: <https://bengelmedia.github.io/thyme-framework/>
+
 Thyme is a framework for wordpress block themes.
 It's built around the principles Roots/Acorn already sets up for the users, with some extra goodies like Post Type registration right from your theme.
 
