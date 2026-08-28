@@ -4,6 +4,7 @@ namespace {{ namespace }};
 
 use Thyme\Framework\Blocks\Block;
 use Thyme\Framework\Icons\DashIcons;
+use Extended\ACF\Fields\Text;
 
 class {{ class }} extends Block
 {
@@ -16,6 +17,12 @@ class {{ class }} extends Block
     protected ?string $category = 'DummyCategory';
 
     protected DashIcons $icon = DashIcons::DummyIcon;
+
+    public function fields(): array {
+    	return [
+    		Text::make( 'Titel', 'title' )->required()->default('title'),
+    	];
+    }
 
     public function scripts(): array
     {
