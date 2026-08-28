@@ -11,6 +11,15 @@ use Thyme\Framework\Helpers\Registrar;
  */
 class BlockRegistrar extends Registrar
 {
+    public function add(string $className): self
+    {
+        if (! is_a($className, Block::class, true)) {
+            return $this;
+        }
+
+        return parent::add($className);
+    }
+
     public function registerOnInit(int $priority = 10): void
     {
         add_action('acf/init', [$this, 'register'], $priority);
