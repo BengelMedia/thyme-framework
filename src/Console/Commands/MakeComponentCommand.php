@@ -117,6 +117,7 @@ class MakeComponentCommand extends GeneratorCommand
     {
         return [
             'DummyName.blade.php' => __DIR__.'/stubs/component.blade.stub',
+            'DummyName.css' => __DIR__.'/stubs/component.css.stub',
         ];
     }
 
