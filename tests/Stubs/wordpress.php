@@ -139,3 +139,8 @@ function reset_registered_blocks(): void
 {
     $GLOBALS['_registered_blocks'] = [];
 }
+
+function apply_filters(string $tag, mixed $value, mixed ...$args): mixed
+{
+    return $value;
+}
