@@ -127,6 +127,8 @@ class Block implements HasFields, HasRegistration
 
         $blockData = array_merge($blockData, $assetData);
 
+        $blockData = apply_filters('thyme-framework/block-args', $blockData, $this->getName());
+
         $registeredBlock = acf_register_block_type($blockData);
 
         AcfRegistry::registerFields(

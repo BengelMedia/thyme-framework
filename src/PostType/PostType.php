@@ -121,7 +121,7 @@ abstract class PostType implements HasFields, HasRegistration
      */
     public function args(): array
     {
-        return [
+        $args = [
             'labels' => $this->labels(),
             'public' => true,
             'publicly_queryable' => true,
@@ -137,6 +137,10 @@ abstract class PostType implements HasFields, HasRegistration
             'supports' => $this->supports(),
             'rewrite' => ['slug' => $this->rewriteSlug()],
         ];
+
+        $args = apply_filters('thyme-framework/post-type-args', $args, $this->slug());
+
+        return $args;
     }
 
     /**

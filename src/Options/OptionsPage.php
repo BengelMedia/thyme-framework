@@ -165,6 +165,9 @@ abstract class OptionsPage implements HasFields, HasRegistration
             $args['updated_message'] = $this->updatedMessage();
         }
 
+        $blockData = apply_filters('thyme-framework/settings-page-args', $args, $this->slug());
+
+
         return $args;
     }
 
