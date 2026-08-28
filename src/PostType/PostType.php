@@ -219,8 +219,8 @@ abstract class PostType implements HasFields
         if($editor !== 'classic') return;
         $slug = $this->slug();
 
-        \add_filter('use_block_editor_for_post_type', function ($useBlockEditor, $post) use ($slug) {
-            if ($post->post_type === $slug) {
+        \add_filter('use_block_editor_for_post_type', function ($useBlockEditor, $post_type) use ($slug) {
+            if ($post_type === $slug) {
                 return false;
             }
 
