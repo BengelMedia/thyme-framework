@@ -1,3 +1,5 @@
+@reference "@styles/app.css";
+
 .DummyName-wrapper {
   /* DummyTitle block styles */
 }
